@@ -8,6 +8,6 @@ public class JokeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_joke);
+        setContentView(R.layout.activity_fragment);
     }
 }
