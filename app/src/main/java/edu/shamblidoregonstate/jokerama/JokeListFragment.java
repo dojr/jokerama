@@ -10,8 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 public class JokeListFragment extends Fragment {
     private RecyclerView mJokeListRecyclerView;
+    private JokeAdapter mAdapter;
+
+    private void updateUI() {
+        ArrayList<Joke> jokes = Joke.JokeList();
+        mAdapter = new JokeAdapter(jokes);
+        mJokeListRecyclerView.setAdapter(mAdapter);
+    }
 
     @Nullable
     @Override
@@ -21,6 +30,39 @@ public class JokeListFragment extends Fragment {
                     .findViewById(R.id.joke_recycler_view);
         mJokeListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        updateUI();
+
         return view;
+    }
+
+    private class JokeHolder extends RecyclerView.ViewHolder {
+        public JokeHolder(LayoutInflater inflater, ViewGroup parent) {
+            super(inflater.inflate(R.layout.list_item_joke, parent, false));
+        }
+
+    }
+
+    private class JokeAdapter extends RecyclerView.Adapter<JokeHolder> {
+        private ArrayList<Joke> mJokes;
+
+        public JokeAdapter(ArrayList<Joke> jokes) {
+            mJokes = jokes;
+        }
+
+        @NonNull
+        @Override
+        public JokeHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            return new JokeHolder(LayoutInflater.from(getActivity()), viewGroup);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull JokeHolder jokeHolder, int i) {
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return mJokes.size();
+        }
     }
 }
