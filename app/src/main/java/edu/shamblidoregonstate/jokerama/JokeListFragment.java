@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -36,10 +37,19 @@ public class JokeListFragment extends Fragment {
     }
 
     private class JokeHolder extends RecyclerView.ViewHolder {
+        private TextView mJokeTitle;
+        private Joke mJoke;
+
         public JokeHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_joke, parent, false));
+            mJokeTitle = itemView.findViewById(R.id.joke_title);
         }
 
+        public void bind(Joke joke){
+            mJoke = joke;
+            mJokeTitle.setText(mJoke.getName());
+
+        }
     }
 
     private class JokeAdapter extends RecyclerView.Adapter<JokeHolder> {
@@ -57,7 +67,8 @@ public class JokeListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull JokeHolder jokeHolder, int i) {
-
+            Joke joke = mJokes.get(i);
+            jokeHolder.bind(joke);
         }
 
         @Override
