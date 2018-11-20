@@ -1,11 +1,13 @@
 package edu.shamblidoregonstate.jokerama;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +20,8 @@ public class JokeListFragment extends Fragment {
     private JokeAdapter mAdapter;
 
     private void updateUI() {
-        ArrayList<Joke> jokes = Joke.JokeList();
+        JokeLab jokeLab = JokeLab.get(getActivity());
+        ArrayList<Joke> jokes = jokeLab.getJokes();
         mAdapter = new JokeAdapter(jokes);
         mJokeListRecyclerView.setAdapter(mAdapter);
     }
@@ -36,19 +39,26 @@ public class JokeListFragment extends Fragment {
         return view;
     }
 
-    private class JokeHolder extends RecyclerView.ViewHolder {
+    private class JokeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mJokeTitle;
         private Joke mJoke;
 
         public JokeHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_joke, parent, false));
+            itemView.setOnClickListener(this);
+
             mJokeTitle = itemView.findViewById(R.id.joke_title);
         }
 
         public void bind(Joke joke){
             mJoke = joke;
             mJokeTitle.setText(mJoke.getName());
+        }
 
+        @Override
+        public void onClick(View v) {
+            Intent intent = JokeActivity.newIntent(getActivity(), mJoke.getJokeID());
+            startActivity(intent);
         }
     }
 

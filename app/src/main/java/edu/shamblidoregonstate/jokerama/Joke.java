@@ -7,16 +7,16 @@ public class Joke {
     private String mName;
     private String mDescription;
     private Boolean mSeen;
+
     private UUID mJokeID;
+    private ArrayList<String> mPunchline;
 
-    private static String[] JokeNames = {"Dope Joke", "Not dope joke"};
-    private static String[] JokeDescriptions = {"Knock knock", "Yolo"};
-
-    Joke(String name, String description){
+    Joke(String name, String description, ArrayList<String> punchline){
         mName = name;
         mDescription = description;
         mSeen = false;
         mJokeID = UUID.randomUUID();
+        mPunchline = punchline;
     }
 
     public String getName() {
@@ -43,11 +43,19 @@ public class Joke {
         mSeen = seen;
     }
 
-    public static ArrayList<Joke> JokeList(){
-        ArrayList<Joke> Jokes = new ArrayList<>();
-        for (int i = 0; i < JokeDescriptions.length; i++) {
-            Jokes.add(new Joke(JokeNames[i], JokeDescriptions[i]));
-        }
-        return Jokes;
-    };
+    public ArrayList<String> getPunchLine() {
+        return mPunchline;
+    }
+
+    public void setPunchLine(ArrayList<String> punchLine) {
+        mPunchline = punchLine;
+    }
+
+    public UUID getJokeID() {
+        return mJokeID;
+    }
+
+    public void setJokeID(UUID mJokeID) {
+        this.mJokeID = mJokeID;
+    }
 }
