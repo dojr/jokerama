@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,14 +49,34 @@ public class JokeFragment extends Fragment {
         mPunchline = v.findViewById(R.id.punchline_layout);
 
         for (int i = 0; i < mJoke.getPunchLine().size() - 1; i++) {
-            Log.d("LOOPERINO", Integer.toString(i));
-            Log.d("Punchline Text:", mJoke.getPunchLine().get(i));
             TextView line = new TextView(getActivity());
+            line.setId(i);
             line.setText(mJoke.getPunchLine().get(i));
+            if (i % 2 != 0) {
+                line.setGravity(Gravity.RIGHT);
+            }
+
+            if (i > 0) {
+                line.setVisibility(View.INVISIBLE);
+            }
 
             mPunchline.addView(line);
-
         }
+
+        mPunchline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i = 1; i < mJoke.getPunchLine().size() - 1; i++){
+                    TextView makeVisible = v.findViewById(i);
+                    if (makeVisible.getVisibility() == View.INVISIBLE){
+                        makeVisible.setVisibility(View.VISIBLE);
+                        break;
+                    } else {
+                        mJoke.setSeen(true);
+                    }
+                }
+            }
+        });
 
 
         return v;
