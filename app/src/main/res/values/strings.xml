@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">jokerama</string>
+    <string name="joke_info">%1$d Jokes, %2$d Completed</string>
 </resources>

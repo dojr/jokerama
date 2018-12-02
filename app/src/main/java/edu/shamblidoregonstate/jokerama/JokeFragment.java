@@ -47,20 +47,32 @@ public class JokeFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.fragment_joke, container, false);
         mPunchline = v.findViewById(R.id.punchline_layout);
+        if (mJoke.getSeen()) {
+            for (int i = 0; i < mJoke.getPunchLine().size() - 1; i++) {
+                TextView line = new TextView(getActivity());
+                line.setId(i);
+                line.setText(mJoke.getPunchLine().get(i));
+                if (i % 2 != 0) {
+                    line.setGravity(Gravity.RIGHT);
+                }
 
-        for (int i = 0; i < mJoke.getPunchLine().size() - 1; i++) {
-            TextView line = new TextView(getActivity());
-            line.setId(i);
-            line.setText(mJoke.getPunchLine().get(i));
-            if (i % 2 != 0) {
-                line.setGravity(Gravity.RIGHT);
+                mPunchline.addView(line);
             }
+        } else {
+            for (int i = 0; i < mJoke.getPunchLine().size() - 1; i++) {
+                TextView line = new TextView(getActivity());
+                line.setId(i);
+                line.setText(mJoke.getPunchLine().get(i));
+                if (i % 2 != 0) {
+                    line.setGravity(Gravity.RIGHT);
+                }
 
-            if (i > 0) {
-                line.setVisibility(View.INVISIBLE);
+                if (i > 0) {
+                    line.setVisibility(View.INVISIBLE);
+                }
+
+                mPunchline.addView(line);
             }
-
-            mPunchline.addView(line);
         }
 
         mPunchline.setOnClickListener(new View.OnClickListener() {

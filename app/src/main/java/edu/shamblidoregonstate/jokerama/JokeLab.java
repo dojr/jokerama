@@ -44,4 +44,19 @@ public class JokeLab {
         }
         return mJokes.get(0);
     }
+
+    public void resetJokes() {
+        for (Joke joke : mJokes) {
+            joke.setSeen(false);
+        }
+    }
+
+    public int getJokesSeen() {
+        int seen = 0;
+        for (Joke joke : mJokes) {
+            if (joke.getSeen()){
+                seen += 1;
+            }
+        } return seen;
+    }
 }
